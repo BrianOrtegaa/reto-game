@@ -47,17 +47,10 @@ let powerMode = false;
 let powerModeTimer = 0;
 let powerModeDuration = 480; // 8 segundos a 60fps (8 * 60)
 let username = '';
+let gameStarted = false;
 
 // Cargar mapa y tiles
 async function loadGame() {
-  // Pedir username al jugador
-  username = prompt('¡Bienvenido a Pac-Man! 👾\n\nIngresa tu nombre de usuario:');
-  
-  // Si cancela o no ingresa nada, usar "Jugador"
-  if (!username || username.trim() === '') {
-    username = 'Jugador';
-  }
-  
   const res = await fetch('assets/map.json');
   mapData = await res.json();
 
@@ -162,19 +155,54 @@ async function loadGame() {
 
   updateScoreboard();
   
-  // Reproducir sonido de inicio y música de fondo
-  sounds.inicio.play().catch(e => console.log('Error al reproducir sonido de inicio:', e));
-  
-  // Reproducir música de fondo después de un pequeño delay
-  setTimeout(() => {
-    sounds.music.play().catch(e => console.log('Error al reproducir música:', e));
-  }, 1000);
-  
-  requestAnimationFrame(gameLoop);
+  // Configurar el menú de inicio
+  setupMenu();
+}
+
+// Configurar menú de inicio
+function setupMenu() {
+  const menuContainer = document.getElementById('menu-container');
+  const usernameInput = document.getElementById('username-input');
+  const startButton = document.getElementById('start-button');
+
+  // Evento para el botón de inicio
+  startButton.addEventListener('click', () => {
+    startGame();
+  });
+
+  // Permitir presionar Enter para iniciar
+  usernameInput.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') {
+      startGame();
+    }
+  });
+
+  function startGame() {
+    username = usernameInput.value.trim() || 'Jugador';
+    
+    // Ocultar menú
+    menuContainer.classList.add('hidden');
+    
+    // Actualizar scoreboard con el nombre
+    updateScoreboard();
+    
+    // Reproducir sonido de inicio y música de fondo
+    sounds.inicio.play().catch(e => console.log('Error al reproducir sonido de inicio:', e));
+    
+    setTimeout(() => {
+      sounds.music.play().catch(e => console.log('Error al reproducir música:', e));
+    }, 1000);
+    
+    // Iniciar el juego
+    gameStarted = true;
+    requestAnimationFrame(gameLoop);
+  }
 }
 
 // Movimiento con buffer de dirección
 window.addEventListener('keydown', e => {
+  if (!gameStarted) return; // No permitir controles antes de iniciar
+  
   if ((gameOver || victory) && e.key === 'Enter') {
     resetGame();
     return;
