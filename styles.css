@@ -1,0 +1,27 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at center, #1a002b 0%, #000010 100%);
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  animation: pulse 5s infinite alternate;
+}
+
+@keyframes pulse {
+  0% { background: radial-gradient(circle at center, #1a003b 0%, #000010 100%); }
+  100% { background: radial-gradient(circle at center, #450080 0%, #000010 100%); }
+}
+
+canvas {
+  display: block;
+  border-radius: 20px;
+  background-color: #000;
+  box-shadow:
+    0 0 20px #9b4dff,
+    0 0 40px #6a00ff,
+    0 0 80px #4500cc;
+}

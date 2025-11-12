@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PacMan 3D</title>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+  <style>
+    body {
+      background: radial-gradient(circle at top left, #0b0018, #000);
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      gap: 30px;
+      height: 100vh;
+      margin: 0;
+      font-family: "Press Start 2P", monospace;
+      color: #fff;
+      overflow: hidden;
+    }
+
+    /* 🎮 LABERINTO */
+    #game-container {
+      position: relative;
+      margin-top: 20px;
+      box-shadow: 0 0 40px #160040 inset, 0 0 20px #6f00ff;
+      border-radius: 12px;
+      background: #03001e;
+      padding: 10px;
+    }
+
+    canvas {
+      display: block;
+      border-radius: 8px;
+    }
+
+    /* 🧾 TABLA DE PUNTUACIÓN */
+    .scoreboard {
+      width: 280px;
+      background: linear-gradient(145deg, #120028, #0b0018);
+      border: 2px solid #5200ff;
+      box-shadow: 0 0 25px #6f00ff88;
+      border-radius: 15px;
+      padding: 20px;
+      margin-top: 50px;
+      color: #fff;
+      text-align: center;
+    }
+
+    .scoreboard h2 {
+      font-size: 16px;
+      margin-bottom: 15px;
+      text-shadow: 0 0 8px #ff0, 0 0 12px #ff0;
+    }
+
+    .scoreboard p {
+      font-size: 12px;
+      margin: 10px 0;
+    }
+
+    .score-value {
+      font-size: 18px;
+      color: #00ffcc;
+      text-shadow: 0 0 10px #00ffcc, 0 0 20px #00ffff;
+    }
+
+    .lives {
+      color: #ff3366;
+      text-shadow: 0 0 6px #ff0044;
+      font-size: 16px;
+    }
+
+    .highscore {
+      color: #ffd700;
+      text-shadow: 0 0 8px #ffdd55;
+    }
+
+    .ghost-status {
+      margin-top: 15px;
+      font-size: 9px;
+      border-top: 1px solid #333;
+      padding-top: 10px;
+      opacity: 0.9;
+      line-height: 1.6;
+    }
+
+    .controls {
+      margin-top: 15px;
+      font-size: 8px;
+      border-top: 1px solid #333;
+      padding-top: 10px;
+      opacity: 0.7;
+    }
+  </style>
+</head>
+<body>
+  <div id="game-container">
+    <canvas id="gameCanvas" width="896" height="800"></canvas>
+  </div>
+
+  <!-- 🧾 SCOREBOARD -->
+  <div class="scoreboard">
+    <h2>🏁 PUNTUACIÓN</h2>
+    <p>Jugador: <span class="score-value" id="username">---</span></p>
+    <p>Puntos: <span class="score-value" id="score">0</span></p>
+    <p>Vidas: <span class="lives" id="lives">3</span></p>
+    <p>Récord: <span class="highscore" id="highscore">0</span></p>
+
+    <div class="ghost-status">
+      👻 Rojo: Persiguiendo<br>
+      💖 Rosa: Anticipando<br>
+      💙 Azul: Patrullando<br>
+      🧡 Naranja: Aleatorio
+    </div>
+
+    <div class="controls">
+      ⌨️ CONTROLES<br>
+      ↑↓←→ o WASD
+    </div>
+  </div>
+
+  <script src="game.js"></script>
+</body>
+</html>
